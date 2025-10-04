@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  sweettrip-app:
+    build: .
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./env.example:/usr/share/nginx/html/.env.example:ro
+    restart: unless-stopped
+    networks:
+      - sweettrip-network
+
+  # Optional: Add a database service if you want to use a local PostgreSQL
+  # postgres:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     POSTGRES_DB: sweettrip
+  #     POSTGRES_USER: sweettrip
+  #     POSTGRES_PASSWORD: sweettrip_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - sweettrip-network
+
+networks:
+  sweettrip-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
