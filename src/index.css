@@ -85,6 +85,17 @@
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
+  /* Majestic logo animation */
+  .animate-majestic {
+    animation: majestic 8s ease-in-out infinite;
+  }
+
+  .logo-glow {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)) 
+            drop-shadow(0 0 40px rgba(168, 85, 247, 0.4))
+            drop-shadow(0 0 60px rgba(236, 72, 153, 0.3));
+  }
+
   /* Custom scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
@@ -232,6 +243,34 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Majestic logo animation keyframes */
+@keyframes majestic {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)) 
+            drop-shadow(0 0 40px rgba(168, 85, 247, 0.4))
+            drop-shadow(0 0 60px rgba(236, 72, 153, 0.3));
+  }
+  25% {
+    transform: translateY(-10px) scale(1.02);
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.4)) 
+            drop-shadow(0 0 50px rgba(168, 85, 247, 0.5))
+            drop-shadow(0 0 75px rgba(236, 72, 153, 0.4));
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5)) 
+            drop-shadow(0 0 60px rgba(168, 85, 247, 0.6))
+            drop-shadow(0 0 90px rgba(236, 72, 153, 0.5));
+  }
+  75% {
+    transform: translateY(-8px) scale(1.02);
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.4)) 
+            drop-shadow(0 0 50px rgba(168, 85, 247, 0.5))
+            drop-shadow(0 0 75px rgba(236, 72, 153, 0.4));
   }
 }
 
