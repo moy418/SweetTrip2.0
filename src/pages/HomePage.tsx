@@ -53,14 +53,15 @@ const HomePage: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/products">
-                <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
+                <Button size="lg" className="hero-button bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold shadow-2xl hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-300 border-0">
                   Shop Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/products?featured=true">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+                <Button size="lg" className="hero-button bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold shadow-2xl hover:from-pink-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 border-0">
                   Featured Products
+                  <Star className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>
