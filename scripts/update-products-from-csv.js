@@ -3,9 +3,14 @@ const fs = require('fs')
 const csv = require('csv-parser')
 const path = require('path')
 
-// Supabase configuration
-const supabaseUrl = 'https://pmqcegwfucfbwwmwumkk.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtcWNlZ3dmdWNmYnd3bXd1bWtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczNTc3NzMsImV4cCI6MjA3MjkzMzc3M30.1oXas_KE7PBq6GyjOkV9lFZaAqQZGlE-8YLCSNgnDjc'
+// Supabase configuration - using environment variables for security
+const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://pmqcegwfucfbwwmwumkk.supabase.co'
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY
+
+if (!supabaseKey) {
+  console.error('❌ VITE_SUPABASE_ANON_KEY environment variable is required')
+  process.exit(1)
+}
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
