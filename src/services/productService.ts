@@ -46,7 +46,8 @@ export class ProductService {
       }
 
       if (filters.status) {
-        query = query.eq('status', filters.status)
+        // Map status to is_active column
+        query = query.eq('is_active', filters.status === 'active')
       }
 
       if (filters.limit) {
@@ -178,7 +179,8 @@ export class ProductService {
       }
 
       if (filters.status) {
-        query = query.eq('status', filters.status)
+        // Map status to is_active column
+        query = query.eq('is_active', filters.status === 'active')
       }
 
       const { count, error } = await query

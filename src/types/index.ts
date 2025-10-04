@@ -13,14 +13,20 @@ export interface Product {
   vendor?: string
   image_urls: string[]
   category_id?: string
-  tags: string[]
+  tags?: string[] // Optional since it might not exist in all products
   stock_quantity: number
   is_active: boolean
   featured: boolean
-  status: 'active' | 'inactive' | 'draft'
-  handle: string
+  status?: 'active' | 'inactive' | 'draft' // Optional since we use is_active in database
+  handle?: string // Optional since database uses 'slug'
+  slug?: string // Database column name
   created_at: string
   updated_at: string
+  // Additional columns that exist in the database
+  world_cup_special?: boolean
+  cultural_significance?: string
+  product_type?: string
+  is_world_cup_product?: boolean
 }
 
 export interface Category {
