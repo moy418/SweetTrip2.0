@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { ProductGrid } from '../components/features/products/ProductGrid'
 import { Button } from '../components/ui/Button'
 import { useCartStore } from '../stores/cartStore'
@@ -11,11 +12,20 @@ import toast from 'react-hot-toast'
 const ProductsPage: React.FC = () => {
   const { t } = useLanguage()
   const { addItem } = useCartStore()
+  const [searchParams] = useSearchParams()
   
   // State for filters and search
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false)
+  
+  // Read URL parameters
+  useEffect(() => {
+    const featuredParam = searchParams.get('featured')
+    if (featuredParam === 'true') {
+      setShowFeaturedOnly(true)
+    }
+  }, [searchParams])
   
   // Use the real products hook
   const { products, loading, error, refetch, totalCount } = useProducts({
@@ -62,10 +72,13 @@ const ProductsPage: React.FC = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            {t('products.title')}
+            {showFeaturedOnly ? 'Featured Products' : t('products.title')}
           </h1>
           <p className="text-lg text-gray-600">
-            Discover our amazing collection of international candies and treats
+            {showFeaturedOnly 
+              ? 'Discover our handpicked selection of premium international candies' 
+              : 'Discover our amazing collection of international candies and treats'
+            }
           </p>
           {totalCount > 0 && (
             <p className="text-sm text-gray-500 mt-2">

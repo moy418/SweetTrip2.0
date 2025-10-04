@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
               <img 
                 src="/sweetlogo-removebg-preview.png" 
                 alt="SweetTrip Logo" 
-                className="h-32 md:h-48 lg:h-64 w-auto animate-majestic logo-glow"
+                className="h-40 md:h-56 lg:h-72 w-auto animate-majestic logo-glow"
               />
             </div>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
@@ -58,9 +58,9 @@ const HomePage: React.FC = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/worldcup2026">
+              <Link to="/products?featured=true">
                 <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                  World Cup 2026
+                  Featured Products
                 </Button>
               </Link>
             </div>
