@@ -213,6 +213,64 @@ Una aplicación SweetTrip completamente nueva, limpia, segura y optimizada que:
 - ✅ Incluye testing completo
 - ✅ Tiene documentación actualizada
 
+## 🆕 Cambios Recientes (Octubre 2025)
+
+### ✨ Mejoras de UI/UX
+- **Emojis flotantes**: Agregados emojis animados de dulces y viajes alrededor del logo principal
+- **Header modernizado**: Rediseño completo del header con diseño más atractivo y moderno
+- **Búsqueda inteligente**: Implementada funcionalidad de búsqueda con filtrado dinámico
+- **Botón de búsqueda dinámico**: El botón "Search" aparece solo cuando el input está vacío
+- **Header simplificado**: Reducido a 2 secciones principales para mejor aprovechamiento del espacio
+
+### 🔧 Mejoras Técnicas
+- **Categorización de productos**: Scripts automatizados para organizar productos en categorías específicas
+- **Filtrado por categorías**: Sistema dinámico de filtrado por categorías (halloween, chocolate, cookies, chips, sweets, spicy, drinks)
+- **Búsqueda funcional**: Búsqueda que filtra productos por nombre y descripción
+- **Navegación mejorada**: URLs con parámetros de búsqueda y categorías
+- **Responsive design**: Optimización para dispositivos móviles
+
+### 📱 Optimizaciones Móviles
+- **Header responsive**: Adaptación completa para pantallas móviles
+- **Búsqueda móvil**: Funcionalidad de búsqueda optimizada para dispositivos táctiles
+- **Navegación simplificada**: Menú hamburguesa con categorías organizadas
+- **Espaciado optimizado**: Mejor aprovechamiento del espacio en pantallas pequeñas
+
+### 🗂️ Organización de Productos
+- **Categorías específicas**: 
+  - Halloween
+  - Chocolate
+  - Cookies
+  - Chips
+  - Sweets (incluye mochis y postres especiales)
+  - Spicy
+  - Drinks (todas las bebidas)
+- **Scripts de migración**: Automatización de la categorización de productos existentes
+- **Filtrado inteligente**: Lógica de prioridad para evitar categorización incorrecta
+
+### 🐳 Docker y Deployment
+- **Docker optimizado**: Configuración mejorada para builds más eficientes
+- **.dockerignore**: Exclusión de node_modules para builds más rápidos
+- **Docker Compose**: Configuración para desarrollo local
+- **Nginx configurado**: Reverse proxy optimizado para producción
+
+### 🎨 Componentes Nuevos
+- **FloatingEmojis**: Componente de emojis animados con CSS keyframes
+- **Header rediseñado**: Componente de header completamente renovado
+- **Búsqueda dinámica**: Sistema de búsqueda con estado reactivo
+- **Categorías dinámicas**: Carga de categorías desde Supabase
+
+### 🔍 Funcionalidades de Búsqueda
+- **Búsqueda en tiempo real**: Filtrado instantáneo de productos
+- **Búsqueda por nombre**: Coincidencias en nombres de productos
+- **Búsqueda por descripción**: Coincidencias en descripciones
+- **Búsqueda case-insensitive**: No distingue entre mayúsculas y minúsculas
+- **Navegación con parámetros**: URLs con términos de búsqueda
+
+### 📊 Scripts de Migración
+- **organize-products-by-categories.js**: Categorización automática de productos
+- **categorize-remaining-products.js**: Categorización manual de productos específicos
+- **fix-category-slugs.js**: Corrección de slugs de categorías en Supabase
+
 ---
 
 **¡Buena suerte con la migración! 🚀**

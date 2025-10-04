@@ -1,42 +1,44 @@
-import * as React from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Star, Truck, Shield, Heart, ShoppingCart } from 'lucide-react'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { useLanguage } from '../contexts/LanguageContext'
+import FloatingEmojis from '../components/ui/FloatingEmojis'
 
 const HomePage: React.FC = () => {
-  const { t } = useLanguage()
+  // const { t } = useLanguage()
 
-  const features = [
-    {
-      icon: Star,
-      title: 'Premium Quality',
-      description: 'Only the finest candies and treats from around the world',
-    },
-    {
-      icon: Truck,
-      title: 'Worldwide Shipping',
-      description: 'We ship to over 50 countries with fast and reliable delivery',
-    },
-    {
-      icon: Shield,
-      title: 'Secure Shopping',
-      description: 'Your data and payments are protected with industry-leading security',
-    },
-    {
-      icon: Heart,
-      title: 'Customer Love',
-      description: 'Join thousands of satisfied customers who trust SweetTrip',
-    },
-  ]
+  // const features = [
+  //   {
+  //     icon: Star,
+  //     title: 'Premium Quality',
+  //     description: 'Only the finest candies and treats from around the world',
+  //   },
+  //   {
+  //     icon: Truck,
+  //     title: 'Worldwide Shipping',
+  //     description: 'We ship to over 50 countries with fast and reliable delivery',
+  //   },
+  //   {
+  //     icon: Shield,
+  //     title: 'Secure Shopping',
+  //     description: 'Your data and payments are protected with industry-leading security',
+  //   },
+  //   {
+  //     icon: Heart,
+  //     title: 'Customer Love',
+  //     description: 'Join thousands of satisfied customers who trust SweetTrip',
+  //   },
+  // ]
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple-600 via-pink-600 to-red-500 text-white">
         <div className="absolute inset-0 bg-black/20"></div>
+        <FloatingEmojis />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <div className="text-center">
             {/* Majestic Logo */}

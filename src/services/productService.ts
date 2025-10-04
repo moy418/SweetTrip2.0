@@ -3,6 +3,7 @@ import { Product } from '../types'
 
 export interface ProductFilters {
   category?: string
+  categorySlug?: string
   featured?: boolean
   search?: string
   minPrice?: number
@@ -27,6 +28,20 @@ export class ProductService {
       // Apply filters
       if (filters.category) {
         query = query.eq('category_id', filters.category)
+      }
+
+      if (filters.categorySlug) {
+        // First get the category ID by slug, then filter by category_id
+        const { data: category } = await supabase
+          .from('categories')
+          .select('id')
+          .eq('slug', filters.categorySlug)
+          .eq('is_active', true)
+          .single()
+        
+        if (category) {
+          query = query.eq('category_id', category.id)
+        }
       }
 
       if (filters.featured !== undefined) {
@@ -148,6 +163,13 @@ export class ProductService {
   }
 
   /**
+   * Get products by category slug
+   */
+  static async getProductsByCategorySlug(categorySlug: string, limit: number = 20): Promise<Product[]> {
+    return this.getProducts({ categorySlug, limit })
+  }
+
+  /**
    * Get product count for pagination
    */
   static async getProductCount(filters: ProductFilters = {}): Promise<number> {
@@ -160,6 +182,20 @@ export class ProductService {
       // Apply same filters as getProducts
       if (filters.category) {
         query = query.eq('category_id', filters.category)
+      }
+
+      if (filters.categorySlug) {
+        // First get the category ID by slug, then filter by category_id
+        const { data: category } = await supabase
+          .from('categories')
+          .select('id')
+          .eq('slug', filters.categorySlug)
+          .eq('is_active', true)
+          .single()
+        
+        if (category) {
+          query = query.eq('category_id', category.id)
+        }
       }
 
       if (filters.featured !== undefined) {

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ProductGrid } from '../components/features/products/ProductGrid'
@@ -7,6 +7,7 @@ import { useCartStore } from '../stores/cartStore'
 import { useLanguage } from '../contexts/LanguageContext'
 import { Product } from '../types'
 import { useProducts } from '../hooks/useProducts'
+import { CategoryService } from '../services/categoryService'
 import toast from 'react-hot-toast'
 
 const ProductsPage: React.FC = () => {
@@ -18,19 +19,59 @@ const ProductsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false)
+  const [availableCategories, setAvailableCategories] = useState<Array<{name: string, slug: string}>>([])
   
   // Read URL parameters
   useEffect(() => {
     const featuredParam = searchParams.get('featured')
+    const categoryParam = searchParams.get('category')
+    const searchParam = searchParams.get('search')
+    
     if (featuredParam === 'true') {
       setShowFeaturedOnly(true)
     }
+    
+    if (categoryParam) {
+      setSelectedCategory(categoryParam)
+    }
+    
+    if (searchParam) {
+      setSearchTerm(searchParam)
+    }
   }, [searchParams])
+
+  // Load available categories
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const categories = await CategoryService.getCategories()
+        const categoryOptions = categories.map(cat => ({
+          name: cat.name,
+          slug: cat.slug
+        }))
+        setAvailableCategories(categoryOptions)
+      } catch (error) {
+        console.error('Error loading categories:', error)
+        // Fallback to hardcoded categories
+        setAvailableCategories([
+          { name: 'HALLOWEEN', slug: 'halloween' },
+          { name: 'CHOCOLATE', slug: 'chocolate' },
+          { name: 'COOKIES', slug: 'cookies' },
+          { name: 'CHIPS', slug: 'chips' },
+          { name: 'SWEETS', slug: 'sweets' },
+          { name: 'SPICY', slug: 'spicy' },
+          { name: 'DRINKS', slug: 'drinks' }
+        ])
+      }
+    }
+    
+    loadCategories()
+  }, [])
   
   // Use the real products hook
   const { products, loading, error, refetch, totalCount } = useProducts({
     search: searchTerm || undefined,
-    category: selectedCategory || undefined,
+    categorySlug: selectedCategory || undefined,
     featured: showFeaturedOnly || undefined,
     status: 'active',
     limit: 50 // Load more products
@@ -105,10 +146,11 @@ const ProductsPage: React.FC = () => {
               className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
             >
               <option value="">All Categories</option>
-              <option value="chocolate">Chocolate</option>
-              <option value="candy">Candy</option>
-              <option value="snacks">Snacks</option>
-              <option value="international">International</option>
+              {availableCategories.map((category) => (
+                <option key={category.slug} value={category.slug}>
+                  {category.name}
+                </option>
+              ))}
             </select>
             <Button 
               variant={showFeaturedOnly ? "default" : "outline"}
