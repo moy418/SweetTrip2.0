@@ -136,18 +136,18 @@ ai-migration-package/
 - [x] Crear página de detalles
 - [x] Implementar productos destacados
 
-### Fase 6: Carrito y Checkout ✅ COMPLETADA
+### Fase 6: Carrito y Checkout 🔄 EN PROGRESO
 - [x] Implementar store de carrito
 - [x] Crear componentes de carrito
-- [x] Integrar con Stripe
-- [x] Implementar checkout
-- [x] Crear confirmación de orden
+- [ ] Integrar con Stripe (scripts listos, no integrado en UI)
+- [ ] Implementar checkout (página placeholder)
+- [ ] Crear confirmación de orden
 
-### Fase 7: Internacionalización ✅ COMPLETADA
+### Fase 7: Internacionalización 🔄 EN PROGRESO
 - [x] Configurar sistema i18n
 - [x] Implementar LanguageContext
 - [x] Crear traducciones
-- [x] Implementar cambio de idioma
+- [ ] Implementar cambio de idioma (sin botón de selección)
 - [ ] Testing de i18n
 
 ### Fase 8: Performance 🔄 EN PROGRESO
@@ -215,27 +215,27 @@ Una aplicación SweetTrip completamente nueva, limpia, segura y optimizada que:
 
 ## 📊 Progreso Actual de Migración
 
-### ✅ Fases Completadas (7/10)
+### ✅ Fases Completadas (5/10)
 - **Fase 1**: Setup Inicial (95% - falta testing)
 - **Fase 2**: Base de Datos (100%)
 - **Fase 3**: Autenticación (100%)
 - **Fase 4**: Componentes Base (100%)
 - **Fase 5**: Productos (100%)
-- **Fase 6**: Carrito y Checkout (100%)
-- **Fase 7**: Internacionalización (95% - falta testing)
 - **Fase 10**: Deployment (80% - falta CI/CD, SSL, monitoreo)
 
-### 🔄 Fases En Progreso (1/10)
+### 🔄 Fases En Progreso (3/10)
+- **Fase 6**: Carrito y Checkout (60% - falta Stripe UI, checkout funcional)
+- **Fase 7**: Internacionalización (80% - falta botón de selección de idioma)
 - **Fase 8**: Performance (80% - falta service workers)
 
 ### ⏳ Fases Pendientes (1/10)
 - **Fase 9**: Testing (0% - completamente pendiente)
 
 ### 📈 Estadísticas de Progreso
-- **Progreso General**: 85% completado
-- **Funcionalidades Core**: 100% implementadas
-- **UI/UX**: 100% completado
-- **Backend**: 100% completado
+- **Progreso General**: 75% completado
+- **Funcionalidades Core**: 80% implementadas
+- **UI/UX**: 90% completado
+- **Backend**: 85% completado
 - **Testing**: 0% completado
 - **Deployment**: 80% completado
 
