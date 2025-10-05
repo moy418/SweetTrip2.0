@@ -12,5 +12,7 @@ export { LoadingSpinner } from './LoadingSpinner'
 export { Badge, badgeVariants } from './Badge'
 export type { BadgeProps } from './Badge'
 
+export { default as LanguageSwitcher } from './LanguageSwitcher'
+
 
 

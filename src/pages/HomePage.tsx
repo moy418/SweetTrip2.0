@@ -8,30 +8,30 @@ import { useLanguage } from '../contexts/LanguageContext'
 import FloatingEmojis from '../components/ui/FloatingEmojis'
 
 const HomePage: React.FC = () => {
-  // const { t } = useLanguage()
+  const { t } = useLanguage()
 
-  // const features = [
-  //   {
-  //     icon: Star,
-  //     title: 'Premium Quality',
-  //     description: 'Only the finest candies and treats from around the world',
-  //   },
-  //   {
-  //     icon: Truck,
-  //     title: 'Worldwide Shipping',
-  //     description: 'We ship to over 50 countries with fast and reliable delivery',
-  //   },
-  //   {
-  //     icon: Shield,
-  //     title: 'Secure Shopping',
-  //     description: 'Your data and payments are protected with industry-leading security',
-  //   },
-  //   {
-  //     icon: Heart,
-  //     title: 'Customer Love',
-  //     description: 'Join thousands of satisfied customers who trust SweetTrip',
-  //   },
-  // ]
+  const features = [
+    {
+      icon: Star,
+      title: 'Premium Quality',
+      description: 'Only the finest candies and treats from around the world',
+    },
+    {
+      icon: Truck,
+      title: 'Worldwide Shipping',
+      description: 'We ship to over 50 countries with fast and reliable delivery',
+    },
+    {
+      icon: Shield,
+      title: 'Secure Shopping',
+      description: 'Your data and payments are protected with industry-leading security',
+    },
+    {
+      icon: Heart,
+      title: 'Customer Love',
+      description: 'Join thousands of satisfied customers who trust SweetTrip',
+    },
+  ]
 
   return (
     <div className="min-h-screen">
@@ -50,19 +50,18 @@ const HomePage: React.FC = () => {
               />
             </div>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
-              Discover amazing candies from around the world. Premium quality, 
-              authentic flavors, and worldwide shipping.
+              {t('homepage.hero.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/products">
                 <Button size="lg" className="hero-button bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold shadow-2xl hover:from-yellow-500 hover:to-orange-600 transform hover:scale-105 transition-all duration-300 border-0">
-                  Shop Now
+                  {t('homepage.hero.shopNow')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/products?featured=true">
                 <Button size="lg" className="hero-button bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold shadow-2xl hover:from-pink-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 border-0">
-                  Featured Products
+                  {t('products.featured')}
                   <Star className="ml-2 h-5 w-5" />
                 </Button>
               </Link>

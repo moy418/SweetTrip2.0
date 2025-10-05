@@ -134,6 +134,14 @@ const translations: Record<string, Record<string, string>> = {
     'worldcup.stories': 'Cultural Stories',
     'worldcup.stats': 'Live Statistics',
     
+    // Homepage
+    'homepage.hero.subtitle': 'Discover amazing candies from around the world. Premium quality, authentic flavors, and worldwide shipping.',
+    'homepage.hero.shopNow': 'Shop Now',
+    'homepage.features.title': 'Why Choose SweetTrip?',
+    'homepage.stats.title': 'SweetTrip by the Numbers',
+    'homepage.cta.title': 'Ready to Start Your Sweet Journey?',
+    'homepage.cta.subtitle': 'Join thousands of satisfied customers and discover your new favorite treats.',
+    
     // Footer
     'footer.newsletter': 'Stay Sweet!',
     'footer.newsletterDesc': 'Get the latest updates on new products and exclusive offers.',
@@ -260,6 +268,14 @@ const translations: Record<string, Record<string, string>> = {
     'worldcup.achievements': 'Logros y Medallas',
     'worldcup.stories': 'Historias Culturales',
     'worldcup.stats': 'Estadísticas en Vivo',
+    
+    // Homepage
+    'homepage.hero.subtitle': 'Descubre dulces increíbles de todo el mundo. Calidad premium, sabores auténticos y envío mundial.',
+    'homepage.hero.shopNow': 'Comprar Ahora',
+    'homepage.features.title': '¿Por qué elegir SweetTrip?',
+    'homepage.stats.title': 'SweetTrip en números',
+    'homepage.cta.title': '¿Listo para comenzar tu viaje dulce?',
+    'homepage.cta.subtitle': 'Únete a miles de clientes satisfechos y descubre tus nuevos dulces favoritos.',
     
     // Footer
     'footer.newsletter': '¡Mantente Dulce!',

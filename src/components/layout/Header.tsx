@@ -5,6 +5,7 @@ import { useCartStore } from '../../stores/cartStore'
 import { useAuthStore } from '../../stores/authStore'
 import { Button } from '../ui/Button'
 import { Badge } from '../ui/Badge'
+import LanguageSwitcher from '../ui/LanguageSwitcher'
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -118,8 +119,11 @@ const Header: React.FC = () => {
               </form>
             </div>
 
-            {/* Cart and Menu - Right */}
+            {/* Cart, Language, and Menu - Right */}
             <div className="flex items-center space-x-4">
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+
               {/* Cart */}
               <Link
                 to="/cart"

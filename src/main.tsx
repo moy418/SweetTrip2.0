@@ -6,6 +6,19 @@ import './index.css'
 // Validate configuration on startup
 import { validateConfig } from './config'
 
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('SW registered: ', registration)
+      })
+      .catch((registrationError) => {
+        console.log('SW registration failed: ', registrationError)
+      })
+  })
+}
+
 try {
   validateConfig()
 } catch (error) {
