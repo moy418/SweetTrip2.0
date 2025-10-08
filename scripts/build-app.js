@@ -66,7 +66,7 @@ const indexHtml = `<!doctype html>
   
   <script>
     // Configuración de Stripe
-    window.STRIPE_PUBLIC_KEY = 'pk_live_51S5YMxB84ORyFU5K03pWrAeQ43qzLZj3KJGYR1OFLGqADEZEvlzNFXZh9RDjrvEygTbIxSU63TADJL6Owl1u1A6T00k9Lrk2JL';
+    window.STRIPE_PUBLIC_KEY = 'YOUR_STRIPE_PUBLISHABLE_KEY_HERE';
     window.stripe = Stripe(window.STRIPE_PUBLIC_KEY);
     
     // Configuración de Supabase

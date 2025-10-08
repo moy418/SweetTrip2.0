@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { ProductGrid } from '../components/features/products/ProductGrid'
 import { Button } from '../components/ui/Button'
 import { useCartStore } from '../stores/cartStore'
@@ -12,6 +12,7 @@ import toast from 'react-hot-toast'
 
 const ProductsPage: React.FC = () => {
   const { t } = useLanguage()
+  const navigate = useNavigate()
   const { addItem } = useCartStore()
   const [searchParams] = useSearchParams()
   
@@ -87,8 +88,7 @@ const ProductsPage: React.FC = () => {
   }
 
   const handleViewProduct = (product: Product) => {
-    // TODO: Navigate to product detail page
-    console.log('View product:', product)
+    navigate(`/products/${product.id}`)
   }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

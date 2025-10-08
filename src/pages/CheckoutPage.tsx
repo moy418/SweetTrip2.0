@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
 import { useLanguage } from '../contexts/LanguageContext'
@@ -14,6 +14,9 @@ const CheckoutPage: React.FC = () => {
   const { items, getTotalPrice, clearCart } = useCartStore()
   const { user } = useAuthStore()
   const [isProcessing, setIsProcessing] = React.useState(false)
+  const [guestEmail, setGuestEmail] = React.useState('')
+  const [guestName, setGuestName] = React.useState('')
+  const [guestPhone, setGuestPhone] = React.useState('')
 
   const subtotal = getTotalPrice()
   const shipping = subtotal >= 60 ? 0 : 5.99
@@ -21,55 +24,103 @@ const CheckoutPage: React.FC = () => {
   const total = subtotal + shipping + tax
 
   const handleCheckout = async () => {
-    if (!user) {
-      toast.error('Please sign in to continue with checkout')
-      navigate('/login')
-      return
-    }
-
     if (items.length === 0) {
       toast.error('Your cart is empty')
       navigate('/cart')
       return
     }
+    
+    // Guest checkout is now allowed!
 
+    // Validate guest information if not logged in
+    if (!user) {
+      if (!guestEmail || !guestName) {
+        toast.error('Please enter your email and name to continue')
+        return
+      }
+      
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(guestEmail)) {
+        toast.error('Please enter a valid email address')
+        return
+      }
+    }
+    
     setIsProcessing(true)
 
     try {
+      const customerEmail = user?.email || guestEmail
+      const customerName = user?.user_metadata?.full_name || guestName
+      const customerPhone = user?.phone || guestPhone
+      
+      console.log('🛒 Creating Stripe checkout session for:', {
+        customerEmail,
+        customerName,
+        customerPhone,
+        items: items.length,
+        total: total.toFixed(2)
+      })
+      
       // Prepare cart items for Stripe
       const cartItems = items.map(item => ({
         product_id: item.product.id,
         product_name: item.product.name,
-        product_image_url: item.product.image,
+        product_image_url: item.product.image_urls?.[0] || item.product.image,
         price: item.product.price,
         quantity: item.quantity
       }))
+      
+      // Store order info in localStorage for the success page
+      const orderInfo = {
+        customerEmail,
+        customerName,
+        customerPhone,
+        items: items.map(item => ({
+          name: item.product.name,
+          quantity: item.quantity,
+          price: item.product.price
+        })),
+        subtotal,
+        shipping,
+        tax,
+        total,
+        timestamp: Date.now()
+      }
+      
+      localStorage.setItem('pending_order', JSON.stringify(orderInfo))
 
-      // Create checkout session
-      const response = await fetch('/api/create-checkout-session', {
+      // Create checkout session with Stripe
+      const response = await fetch('http://localhost:3001/api/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           cartItems,
-          customerEmail: user.email,
+          customerEmail,
+          customerName,
+          customerPhone,
           successUrl: `${window.location.origin}/checkout/success`,
           cancelUrl: `${window.location.origin}/cart`
         })
       })
 
       if (!response.ok) {
-        throw new Error('Failed to create checkout session')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.details || 'Failed to create checkout session')
       }
 
       const { sessionId, url } = await response.json()
+
+      console.log('✅ Stripe session created:', sessionId)
+      toast.success('Redirecting to Stripe Checkout...')
 
       // Redirect to Stripe Checkout
       if (url) {
         window.location.href = url
       } else {
-        throw new Error('No checkout URL received')
+        throw new Error('No checkout URL received from Stripe')
       }
 
     } catch (error) {
@@ -113,7 +164,70 @@ const CheckoutPage: React.FC = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Order Summary */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-6">
+            {/* Guest Information Form */}
+            {!user && (
+              <Card className="border-2 border-purple-200">
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <CreditCard className="h-5 w-5 text-purple-600" />
+                    <span>Contact Information</span>
+                  </CardTitle>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Enter your details to complete the purchase. 
+                    <Link to="/login" className="text-purple-600 hover:text-purple-700 ml-1">
+                      Already have an account?
+                    </Link>
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="guest-email" className="block text-sm font-medium text-gray-700 mb-1">
+                        Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="guest-email"
+                        value={guestEmail}
+                        onChange={(e) => setGuestEmail(e.target.value)}
+                        placeholder="your.email@example.com"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="guest-name" className="block text-sm font-medium text-gray-700 mb-1">
+                        Full Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="guest-name"
+                        value={guestName}
+                        onChange={(e) => setGuestName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="guest-phone" className="block text-sm font-medium text-gray-700 mb-1">
+                        Phone Number (optional)
+                      </label>
+                      <input
+                        type="tel"
+                        id="guest-phone"
+                        value={guestPhone}
+                        onChange={(e) => setGuestPhone(e.target.value)}
+                        placeholder="+1 (555) 123-4567"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">

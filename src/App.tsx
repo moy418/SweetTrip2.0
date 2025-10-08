@@ -11,6 +11,7 @@ import CheckoutPage from './pages/CheckoutPage'
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import AuthCallbackPage from './pages/AuthCallbackPage'
 import ProfilePage from './pages/ProfilePage'
 import OrdersPage from './pages/OrdersPage'
 import WorldCup2026Page from './pages/WorldCup2026Page'
@@ -46,6 +47,7 @@ function App() {
                   <Route path="/checkout/success" element={<CheckoutSuccessPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/auth/callback" element={<AuthCallbackPage />} />
                   <Route path="/worldcup2026" element={<WorldCup2026Page />} />
                   
                   {/* Protected Routes */}

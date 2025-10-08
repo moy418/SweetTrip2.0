@@ -9,6 +9,7 @@ interface AuthStore {
   isAuthenticated: boolean
   signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
   signUp: (email: string, password: string, userData: { first_name: string; last_name: string; phone?: string }) => Promise<{ success: boolean; error?: string }>
+  signInWithSocial: (provider: 'google' | 'facebook') => Promise<{ success: boolean; error?: string }>
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>
   updateProfile: (userData: Partial<User>) => Promise<{ success: boolean; error?: string }>
@@ -138,6 +139,36 @@ export const useAuthStore = create<AuthStore>()(
           return { 
             success: false, 
             error: error instanceof Error ? error.message : 'An unexpected error occurred' 
+          }
+        }
+      },
+
+      signInWithSocial: async (provider) => {
+        set({ isLoading: true })
+        try {
+          const { error } = await supabase.auth.signInWithOAuth({
+            provider: provider,
+            options: {
+              redirectTo: `${window.location.origin}/auth/callback`,
+              queryParams: {
+                access_type: 'offline',
+                prompt: 'consent',
+              },
+            },
+          })
+
+          if (error) {
+            set({ isLoading: false })
+            return { success: false, error: error.message }
+          }
+
+          // OAuth redirect will happen, loading state will be handled by callback
+          return { success: true }
+        } catch (error) {
+          set({ isLoading: false })
+          return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Social login failed'
           }
         }
       },

@@ -1,302 +1,584 @@
-# SweetTrip AI Migration Package
+# 🍭 SweetTrip 2.0 - International Candy E-commerce
 
-Este paquete contiene toda la información necesaria para que una herramienta de AI pueda realizar una migración completa y limpia del proyecto SweetTrip.
+## 🎯 Descripción
 
-## 📁 Estructura del Paquete
-
-```
-ai-migration-package/
-├── docs/                    # Documentación completa
-│   ├── README_CLEAN.md     # Documento principal de migración
-│   ├── ARCHITECTURE_GUIDE.md # Guía de arquitectura técnica
-│   ├── COMPONENT_REFERENCE.md # Referencia de componentes
-│   ├── SECURITY_GUIDE.md   # Guía de seguridad
-│   ├── MIGRATION_ROADMAP.md # Plan de migración detallado
-│   └── *.md               # Documentación adicional
-├── configs/                # Archivos de configuración
-│   ├── package.json       # Dependencias y scripts
-│   ├── tsconfig.json      # Configuración TypeScript
-│   ├── vite.config.ts     # Configuración de build
-│   ├── tailwind.config.js # Sistema de diseño
-│   ├── index.html         # HTML principal
-│   ├── Dockerfile         # Configuración Docker
-│   ├── nginx.conf         # Configuración Nginx
-│   ├── seed.sql           # Esquema de base de datos
-│   └── config.toml        # Configuración Supabase
-├── src-data/              # Datos y código fuente clave
-│   ├── real_products.json # Productos del catálogo
-│   ├── categoryVideos.ts  # Videos por categoría
-│   ├── i18n.ts           # Sistema de internacionalización
-│   ├── types.ts          # Tipos TypeScript
-│   ├── cart-store.ts     # Store de Zustand
-│   ├── supabase.ts       # Cliente Supabase
-│   ├── stripe.ts         # Configuración Stripe
-│   ├── emailService.ts   # Servicio de emails
-│   ├── orderProcessor.ts # Procesador de órdenes
-│   ├── utils.ts          # Utilidades
-│   ├── AuthContext.tsx   # Contexto de autenticación
-│   ├── LanguageContext.tsx # Contexto de idioma
-│   ├── use-mobile.tsx    # Hook para mobile
-│   ├── useIntersectionObserver.ts # Hook de observación
-│   ├── useScrollBehavior.ts # Hook de scroll
-│   ├── main.tsx          # Punto de entrada
-│   ├── index.css         # Estilos globales
-│   └── App.css           # Estilos de la app
-└── scripts/              # Scripts y funciones
-    ├── *.sh              # Scripts de shell
-    ├── *.js              # Scripts Node.js
-    ├── *.cjs             # Scripts CommonJS
-    ├── *.mjs             # Scripts ES modules
-    ├── index.ts          # Función Supabase
-    ├── create-checkout.php # Checkout PHP
-    └── redirect.html     # Página de redirección
-```
-
-## 🎯 Objetivo de la Migración
-
-### Problemas Actuales
-- Conflictos de seguridad
-- Código legacy con vulnerabilidades
-- Arquitectura inconsistente
-- Performance subóptima
-- Mantenibilidad baja
-
-### Objetivos de la Nueva Implementación
-- ✅ Código limpio y seguro
-- ✅ Arquitectura moderna y escalable
-- ✅ Performance optimizada
-- ✅ Mantenibilidad alta
-- ✅ Testing completo
-- ✅ Documentación actualizada
-
-## 🚀 Instrucciones para la Herramienta de AI
-
-### 1. Análisis Inicial
-1. Leer `docs/README_CLEAN.md` para entender el contexto
-2. Revisar `docs/ARCHITECTURE_GUIDE.md` para la nueva arquitectura
-3. Estudiar `docs/SECURITY_GUIDE.md` para identificar vulnerabilidades
-4. Analizar `docs/COMPONENT_REFERENCE.md` para entender componentes
-
-### 2. Planificación
-1. Seguir `docs/MIGRATION_ROADMAP.md` para el plan de 10 fases
-2. Identificar dependencias críticas en `configs/package.json`
-3. Revisar configuración de build en `configs/vite.config.ts`
-4. Analizar esquema de BD en `configs/seed.sql`
-
-### 3. Implementación
-1. Crear nueva estructura de proyecto
-2. Implementar componentes base siguiendo patrones modernos
-3. Configurar servicios (Supabase, Stripe, Email)
-4. Implementar sistema de autenticación seguro
-5. Crear sistema de carrito y checkout
-6. Implementar internacionalización
-7. Optimizar performance y SEO
-
-### 4. Testing y Deployment
-1. Testing unitario y de integración
-2. Testing de seguridad
-3. Testing de performance
-4. Configuración de CI/CD
-5. Deployment con Docker
-
-## 📋 Checklist de Migración
-
-### Fase 1: Setup Inicial ✅ COMPLETADA
-- [x] Crear nueva estructura de proyecto
-- [x] Configurar TypeScript y Vite
-- [x] Configurar Tailwind CSS
-- [x] Setup de ESLint y Prettier
-- [ ] Configurar testing (Jest, React Testing Library)
-
-### Fase 2: Base de Datos ✅ COMPLETADA
-- [x] Configurar Supabase
-- [x] Implementar esquema de BD
-- [x] Configurar RLS policies
-- [x] Crear funciones SQL
-- [x] Setup de migraciones
-
-### Fase 3: Autenticación ✅ COMPLETADA
-- [x] Implementar AuthContext
-- [x] Configurar Supabase Auth
-- [x] Crear componentes de login/register
-- [x] Implementar protección de rutas
-- [x] Configurar roles y permisos
-
-### Fase 4: Componentes Base ✅ COMPLETADA
-- [x] Crear sistema de diseño
-- [x] Implementar componentes UI
-- [x] Crear Layout principal
-- [x] Implementar Header y Footer
-- [x] Crear sistema de navegación
-
-### Fase 5: Productos ✅ COMPLETADA
-- [x] Implementar catálogo de productos
-- [x] Crear componentes de producto
-- [x] Implementar búsqueda y filtros
-- [x] Crear página de detalles
-- [x] Implementar productos destacados
-
-### Fase 6: Carrito y Checkout 🔄 EN PROGRESO
-- [x] Implementar store de carrito
-- [x] Crear componentes de carrito
-- [ ] Integrar con Stripe (scripts listos, no integrado en UI)
-- [ ] Implementar checkout (página placeholder)
-- [ ] Crear confirmación de orden
-
-### Fase 7: Internacionalización 🔄 EN PROGRESO
-- [x] Configurar sistema i18n
-- [x] Implementar LanguageContext
-- [x] Crear traducciones
-- [ ] Implementar cambio de idioma (sin botón de selección)
-- [ ] Testing de i18n
-
-### Fase 8: Performance 🔄 EN PROGRESO
-- [x] Implementar lazy loading
-- [x] Optimizar imágenes
-- [x] Configurar caching
-- [ ] Implementar service workers
-- [x] Optimizar bundle size
-
-### Fase 9: Testing ⏳ PENDIENTE
-- [ ] Testing unitario
-- [ ] Testing de integración
-- [ ] Testing E2E
-- [ ] Testing de seguridad
-- [ ] Testing de performance
-
-### Fase 10: Deployment ✅ COMPLETADA
-- [x] Configurar Docker
-- [ ] Setup de CI/CD
-- [x] Configurar Nginx
-- [ ] Setup de SSL
-- [ ] Configurar monitoreo
-
-## 🔧 Tecnologías Clave
-
-### Frontend
-- **React 18** con TypeScript
-- **Vite** para build y dev server
-- **Tailwind CSS** para estilos
-- **Zustand** para estado global
-- **React Router** para navegación
-- **React Hook Form** para formularios
-
-### Backend
-- **Supabase** para BD y auth
-- **Stripe** para pagos
-- **EmailJS** para notificaciones
-- **Edge Functions** para lógica serverless
-
-### Herramientas
-- **Docker** para containerización
-- **Nginx** para reverse proxy
-- **ESLint** para linting
-- **Jest** para testing
-- **GitHub Actions** para CI/CD
-
-## 📞 Soporte
-
-Para cualquier duda durante la migración, referirse a:
-1. `docs/README_CLEAN.md` - Documento principal
-2. `docs/ARCHITECTURE_GUIDE.md` - Arquitectura técnica
-3. `docs/SECURITY_GUIDE.md` - Consideraciones de seguridad
-4. `docs/MIGRATION_ROADMAP.md` - Plan detallado
-
-## 🎉 Resultado Esperado
-
-Una aplicación SweetTrip completamente nueva, limpia, segura y optimizada que:
-- ✅ Mantiene toda la funcionalidad actual
-- ✅ Mejora significativamente la seguridad
-- ✅ Optimiza el rendimiento
-- ✅ Facilita el mantenimiento
-- ✅ Escala para futuras funcionalidades
-- 🔄 Incluye testing completo (en progreso)
-- ✅ Tiene documentación actualizada
-
-## 📊 Progreso Actual de Migración
-
-### ✅ Fases Completadas (5/10)
-- **Fase 1**: Setup Inicial (95% - falta testing)
-- **Fase 2**: Base de Datos (100%)
-- **Fase 3**: Autenticación (100%)
-- **Fase 4**: Componentes Base (100%)
-- **Fase 5**: Productos (100%)
-- **Fase 10**: Deployment (80% - falta CI/CD, SSL, monitoreo)
-
-### 🔄 Fases En Progreso (3/10)
-- **Fase 6**: Carrito y Checkout (60% - falta Stripe UI, checkout funcional)
-- **Fase 7**: Internacionalización (80% - falta botón de selección de idioma)
-- **Fase 8**: Performance (80% - falta service workers)
-
-### ⏳ Fases Pendientes (1/10)
-- **Fase 9**: Testing (0% - completamente pendiente)
-
-### 📈 Estadísticas de Progreso
-- **Progreso General**: 75% completado
-- **Funcionalidades Core**: 80% implementadas
-- **UI/UX**: 90% completado
-- **Backend**: 85% completado
-- **Testing**: 0% completado
-- **Deployment**: 80% completado
-
-## 🆕 Cambios Recientes (Octubre 2025)
-
-### ✨ Mejoras de UI/UX
-- **Emojis flotantes**: Agregados emojis animados de dulces y viajes alrededor del logo principal
-- **Header modernizado**: Rediseño completo del header con diseño más atractivo y moderno
-- **Búsqueda inteligente**: Implementada funcionalidad de búsqueda con filtrado dinámico
-- **Botón de búsqueda dinámico**: El botón "Search" aparece solo cuando el input está vacío
-- **Header simplificado**: Reducido a 2 secciones principales para mejor aprovechamiento del espacio
-
-### 🔧 Mejoras Técnicas
-- **Categorización de productos**: Scripts automatizados para organizar productos en categorías específicas
-- **Filtrado por categorías**: Sistema dinámico de filtrado por categorías (halloween, chocolate, cookies, chips, sweets, spicy, drinks)
-- **Búsqueda funcional**: Búsqueda que filtra productos por nombre y descripción
-- **Navegación mejorada**: URLs con parámetros de búsqueda y categorías
-- **Responsive design**: Optimización para dispositivos móviles
-
-### 📱 Optimizaciones Móviles
-- **Header responsive**: Adaptación completa para pantallas móviles
-- **Búsqueda móvil**: Funcionalidad de búsqueda optimizada para dispositivos táctiles
-- **Navegación simplificada**: Menú hamburguesa con categorías organizadas
-- **Espaciado optimizado**: Mejor aprovechamiento del espacio en pantallas pequeñas
-
-### 🗂️ Organización de Productos
-- **Categorías específicas**: 
-  - Halloween
-  - Chocolate
-  - Cookies
-  - Chips
-  - Sweets (incluye mochis y postres especiales)
-  - Spicy
-  - Drinks (todas las bebidas)
-- **Scripts de migración**: Automatización de la categorización de productos existentes
-- **Filtrado inteligente**: Lógica de prioridad para evitar categorización incorrecta
-
-### 🐳 Docker y Deployment
-- **Docker optimizado**: Configuración mejorada para builds más eficientes
-- **.dockerignore**: Exclusión de node_modules para builds más rápidos
-- **Docker Compose**: Configuración para desarrollo local
-- **Nginx configurado**: Reverse proxy optimizado para producción
-
-### 🎨 Componentes Nuevos
-- **FloatingEmojis**: Componente de emojis animados con CSS keyframes
-- **Header rediseñado**: Componente de header completamente renovado
-- **Búsqueda dinámica**: Sistema de búsqueda con estado reactivo
-- **Categorías dinámicas**: Carga de categorías desde Supabase
-
-### 🔍 Funcionalidades de Búsqueda
-- **Búsqueda en tiempo real**: Filtrado instantáneo de productos
-- **Búsqueda por nombre**: Coincidencias en nombres de productos
-- **Búsqueda por descripción**: Coincidencias en descripciones
-- **Búsqueda case-insensitive**: No distingue entre mayúsculas y minúsculas
-- **Navegación con parámetros**: URLs con términos de búsqueda
-
-### 📊 Scripts de Migración
-- **organize-products-by-categories.js**: Categorización automática de productos
-- **categorize-remaining-products.js**: Categorización manual de productos específicos
-- **fix-category-slugs.js**: Corrección de slugs de categorías en Supabase
+SweetTrip es una plataforma de e-commerce moderna para dulces internacionales con integración completa de Stripe, Supabase, sistema de idiomas, y notificaciones por email.
 
 ---
 
-**¡Buena suerte con la migración! 🚀**
+## 🚀 Características Principales
+
+- ✅ **E-commerce Completo**: Catálogo de productos, carrito, checkout
+- ✅ **Pagos Reales con Stripe**: Integración completa con Stripe Checkout
+- ✅ **Guest Checkout**: Compras sin necesidad de registro
+- ✅ **Multi-idioma**: Español, Inglés, Francés, Portugués
+- ✅ **Autenticación**: Email/Password + Social Login (Google, Facebook)
+- ✅ **Base de Datos**: Supabase (PostgreSQL)
+- ✅ **Notificaciones**: Emails automáticos para cliente y admin
+- ✅ **Diseño Moderno**: UI/UX profesional con Tailwind CSS
+- ✅ **Responsive**: Móvil, Tablet, Desktop
+- ✅ **Product Detail**: Galería de imágenes, información AI-enhanced
+
+---
+
+## 📋 Requisitos del Sistema
+
+- **Node.js**: v18.x o superior
+- **npm**: v9.x o superior
+- **Supabase**: Proyecto configurado
+- **Stripe**: Cuenta con keys LIVE
+- **Dominio**: www.sweettripcandy.com
+
+---
+
+## 🛠️ Instalación Local
+
+### 1. Clonar el Repositorio
+
+```bash
+git clone <repository-url>
+cd SweetTrip2.0
+```
+
+### 2. Instalar Dependencias
+
+```bash
+npm install
+```
+
+### 3. Configurar Variables de Entorno
+
+Copia el archivo de ejemplo y configura tus credenciales:
+
+```bash
+cp env.example .env
+```
+
+Edita `.env` con tus credenciales:
+
+```env
+# Supabase
+VITE_SUPABASE_URL=https://pmqcegwfucfbwwmwumkk.supabase.co
+VITE_SUPABASE_ANON_KEY=tu_anon_key
+
+# Stripe
+VITE_STRIPE_PUBLISHABLE_KEY=pk_live_...
+STRIPE_SECRET_KEY=sk_live_...
+
+# Email Admin
+VITE_ADMIN_EMAIL=orders@sweettripcandy.com
+
+# App
+VITE_APP_URL=http://localhost:3000
+NODE_ENV=development
+```
+
+### 4. Iniciar Servidores de Desarrollo
+
+**Opción A: Manual (2 terminales)**
+
+Terminal 1 - Frontend:
+```bash
+npm run dev
+```
+
+Terminal 2 - Backend:
+```bash
+npm run server
+```
+
+**Opción B: Automático (requiere instalar concurrently)**
+
+```bash
+npm install -D concurrently
+npm run dev:full
+```
+
+### 5. Acceder a la Aplicación
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:3001
+
+---
+
+## 🌐 Despliegue a Producción (www.sweettripcandy.com)
+
+### Arquitectura de Despliegue:
+
+```
+Frontend (React/Vite) → Vercel/Netlify/Nginx
+Backend (Express) → Node.js Server/PM2
+Base de Datos → Supabase (Cloud)
+Pagos → Stripe (Cloud)
+Emails → Zapier Webhooks
+```
+
+### Opción 1: Despliegue Separado (Recomendado)
+
+#### A. Frontend en Vercel/Netlify:
+
+**Build del Frontend:**
+```bash
+npm run build
+```
+
+Esto genera la carpeta `dist/` con todos los archivos estáticos.
+
+**Vercel:**
+1. Conecta tu repositorio en Vercel
+2. Configure Build Command: `npm run build`
+3. Output Directory: `dist`
+4. Añade variables de entorno (VITE_*)
+5. Deploy
+
+**Netlify:**
+1. Conecta tu repositorio en Netlify
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Añade variables de entorno
+5. Deploy
+
+#### B. Backend en Servidor Node.js:
+
+**1. Preparar Servidor:**
+```bash
+# En el servidor
+sudo apt update
+sudo apt install nodejs npm nginx
+npm install -g pm2
+```
+
+**2. Subir Código:**
+```bash
+# Desde tu local
+scp -r server.cjs package.json user@server:/var/www/sweettrip/
+```
+
+**3. Instalar Dependencias:**
+```bash
+# En el servidor
+cd /var/www/sweettrip
+npm install --production
+```
+
+**4. Configurar .env en el Servidor:**
+```bash
+# En el servidor
+nano .env
+# Añadir todas las variables de producción
+```
+
+**5. Iniciar con PM2:**
+```bash
+pm2 start server.cjs --name sweettrip-backend
+pm2 save
+pm2 startup
+```
+
+**6. Configurar Nginx como Reverse Proxy:**
+```nginx
+server {
+    listen 80;
+    server_name api.sweettripcandy.com;
+
+    location / {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+```bash
+sudo ln -s /etc/nginx/sites-available/sweettrip-api /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+**7. Certificado SSL:**
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d api.sweettripcandy.com
+```
+
+---
+
+### Opción 2: Despliegue Todo en el Mismo Servidor (VPS/Dedicated)
+
+**1. Preparar el Servidor:**
+```bash
+ssh user@sweettripcandy.com
+
+# Instalar Node.js y dependencias
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs nginx
+npm install -g pm2
+```
+
+**2. Clonar y Configurar:**
+```bash
+cd /var/www
+git clone <your-repo-url> sweettrip
+cd sweettrip
+
+# Instalar dependencias
+npm install
+
+# Configurar .env
+cp env.example .env
+nano .env  # Editar con credenciales de producción
+```
+
+**3. Build del Frontend:**
+```bash
+npm run build
+```
+
+**4. Configurar Nginx:**
+
+Crear archivo `/etc/nginx/sites-available/sweettrip`:
+
+```nginx
+# Frontend
+server {
+    listen 80;
+    server_name www.sweettripcandy.com sweettripcandy.com;
+
+    root /var/www/sweettrip/dist;
+    index index.html;
+
+    # Servir archivos estáticos
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Proxy para API backend
+    location /api/ {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+```bash
+sudo ln -s /etc/nginx/sites-available/sweettrip /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+**5. Iniciar Backend con PM2:**
+```bash
+cd /var/www/sweettrip
+pm2 start server.cjs --name sweettrip-backend
+pm2 save
+pm2 startup
+```
+
+**6. Certificado SSL (HTTPS):**
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d sweettripcandy.com -d www.sweettripcandy.com
+```
+
+---
+
+## 🔐 Variables de Entorno para Producción
+
+Crear archivo `.env` en el servidor con:
+
+```env
+# Supabase
+VITE_SUPABASE_URL=https://pmqcegwfucfbwwmwumkk.supabase.co
+VITE_SUPABASE_ANON_KEY=<tu_anon_key>
+
+# Stripe
+VITE_STRIPE_PUBLISHABLE_KEY=pk_live_YOUR_PUBLISHABLE_KEY_HERE
+STRIPE_SECRET_KEY=sk_live_YOUR_SECRET_KEY_HERE
+STRIPE_WEBHOOK_SECRET=whsec_...  # Obtener de Stripe Dashboard
+
+# Email
+VITE_ADMIN_EMAIL=orders@sweettripcandy.com
+
+# App (IMPORTANTE: Cambiar a producción)
+VITE_APP_URL=https://www.sweettripcandy.com
+VITE_APP_NAME=SweetTrip
+NODE_ENV=production
+```
+
+---
+
+## 🔧 Configuración en Supabase
+
+### 1. URL Configuration
+
+En Supabase Dashboard → Authentication → URL Configuration:
+
+**Site URL:**
+```
+https://www.sweettripcandy.com
+```
+
+**Redirect URLs:**
+```
+https://www.sweettripcandy.com/auth/callback
+https://www.sweettripcandy.com
+http://localhost:3000/auth/callback
+http://localhost:3000
+```
+
+### 2. OAuth Providers
+
+**Google:**
+- Authorized redirect URIs: `https://pmqcegwfucfbwwmwumkk.supabase.co/auth/v1/callback`
+
+**Facebook:**
+- Valid OAuth Redirect URIs: `https://pmqcegwfucfbwwmwumkk.supabase.co/auth/v1/callback`
+
+---
+
+## 💳 Configuración de Stripe
+
+### Webhook en Producción:
+
+1. Ir a: https://dashboard.stripe.com/webhooks
+2. **Add endpoint**
+3. URL: `https://www.sweettripcandy.com/api/webhook`
+4. Eventos a escuchar:
+   - `checkout.session.completed`
+   - `payment_intent.succeeded`
+   - `payment_intent.payment_failed`
+5. Copiar **Signing secret** (whsec_...)
+6. Añadir a `.env`: `STRIPE_WEBHOOK_SECRET=whsec_...`
+
+---
+
+## 📧 Configuración de Emails (Zapier)
+
+Los webhooks ya están configurados:
+- Cliente: `https://hooks.zapier.com/hooks/catch/23096000/umwdeto/`
+- Admin: `https://hooks.zapier.com/hooks/catch/23096000/umctn6y/`
+
+No requiere cambios adicionales.
+
+---
+
+## 🗄️ Base de Datos (Supabase)
+
+### Tablas Requeridas:
+
+Tu proyecto debe tener estas tablas:
+- `products` - Catálogo de productos
+- `categories` - Categorías de productos
+- `users` - Perfiles de usuarios
+- `orders` - Órdenes de compra
+- `order_items` - Items de cada orden
+
+Ver `DATABASE_SCHEMA.md` para el schema completo.
+
+---
+
+## 📦 Estructura del Proyecto
+
+```
+SweetTrip2.0/
+├── src/                    # Código fuente React
+│   ├── components/         # Componentes UI
+│   ├── pages/             # Páginas de la app
+│   ├── services/          # Servicios (API calls)
+│   ├── stores/            # Zustand stores
+│   ├── contexts/          # React contexts
+│   ├── hooks/             # Custom hooks
+│   └── lib/               # Utilidades y configuración
+├── public/                # Archivos estáticos
+├── server.cjs             # Backend Express + Stripe
+├── package.json           # Dependencias
+├── vite.config.ts         # Configuración Vite
+├── tailwind.config.js     # Configuración Tailwind
+└── .env                   # Variables de entorno (NO subir a git)
+```
+
+---
+
+## 🔄 Actualizar Dominio de Producción
+
+**Actualmente**: Redirige a www.sweettripcandy.com (versión antigua)
+**Solución**: Actualizar variables de entorno y rebuild
+
+### En tu archivo `.env` de producción:
+
+```env
+VITE_APP_URL=https://www.sweettripcandy.com
+```
+
+### Rebuild después de cambiar:
+
+```bash
+npm run build
+```
+
+---
+
+## 📝 Comandos Útiles
+
+### Desarrollo:
+```bash
+npm run dev          # Inicia frontend (puerto 3000)
+npm run server       # Inicia backend (puerto 3001)
+npm run dev:full     # Inicia ambos simultáneamente
+```
+
+### Producción:
+```bash
+npm run build        # Build del frontend
+npm run preview      # Preview del build
+npm run lint         # Linter
+npm run test         # Tests
+```
+
+### PM2 (Servidor):
+```bash
+pm2 start server.cjs --name sweettrip-backend
+pm2 status           # Ver estado
+pm2 logs             # Ver logs
+pm2 restart all      # Reiniciar
+pm2 stop all         # Detener
+```
+
+---
+
+## 🎨 Páginas Implementadas
+
+- ✅ HomePage - Página principal con productos destacados
+- ✅ ProductsPage - Catálogo completo con filtros
+- ✅ ProductDetailPage - Detalle con galería de imágenes
+- ✅ CartPage - Carrito de compras
+- ✅ CheckoutPage - Checkout con guest support
+- ✅ CheckoutSuccessPage - Confirmación de orden
+- ✅ LoginPage - Login moderno con social auth
+- ✅ RegisterPage - Registro con validación de password
+- ✅ AuthCallbackPage - Callback para OAuth
+- ✅ ProfilePage - Perfil de usuario
+- ✅ OrdersPage - Historial de órdenes
+- ✅ WorldCup2026Page - Página especial Mundial 2026
+
+---
+
+## 🔒 Seguridad
+
+- ✅ HTTPS obligatorio en producción
+- ✅ Variables de entorno para secrets
+- ✅ CORS configurado
+- ✅ Webhook signature verification (Stripe)
+- ✅ RLS (Row Level Security) en Supabase
+- ✅ Sanitización de inputs
+
+---
+
+## 📊 Monitoreo
+
+### Logs del Backend:
+```bash
+pm2 logs sweettrip-backend
+```
+
+### Logs de Nginx:
+```bash
+sudo tail -f /var/log/nginx/access.log
+sudo tail -f /var/log/nginx/error.log
+```
+
+### Stripe Dashboard:
+https://dashboard.stripe.com/payments
+
+### Supabase Dashboard:
+https://supabase.com/dashboard/project/pmqcegwfucfbwwmwumkk
+
+---
+
+## 🐛 Troubleshooting
+
+### Frontend no carga:
+```bash
+# Verificar build
+npm run build
+
+# Verificar permisos
+sudo chown -R www-data:www-data /var/www/sweettrip/dist
+
+# Verificar nginx
+sudo nginx -t
+sudo systemctl status nginx
+```
+
+### Backend no responde:
+```bash
+# Verificar proceso
+pm2 status
+
+# Ver logs
+pm2 logs sweettrip-backend
+
+# Reiniciar
+pm2 restart sweettrip-backend
+```
+
+### Pagos no funcionan:
+- Verificar que backend esté corriendo
+- Verificar STRIPE_SECRET_KEY en .env
+- Revisar logs en Stripe Dashboard
+- Verificar webhook signature
+
+---
+
+## 📚 Documentación Adicional
+
+- `DEPLOYMENT_CONFIG.md` - Configuración detallada de despliegue
+- `DATABASE_SCHEMA.md` - Schema de la base de datos
+- `STRIPE_INTEGRATION_COMPLETE.md` - Integración de Stripe
+- `SOCIAL_LOGIN_SETUP.md` - Configuración de OAuth
+- `CHECKOUT_STATUS.md` - Estado del sistema de checkout
+
+---
+
+## 🆘 Soporte
+
+- **Email**: support@sweettripcandy.com
+- **Issues**: GitHub Issues
+- **Stripe Support**: https://support.stripe.com
+- **Supabase Support**: https://supabase.com/support
+
+---
+
+## 📝 Licencia
+
+Propietario: SweetTrip Candy
+© 2025 SweetTrip. Todos los derechos reservados.
+
+---
+
+## 🎉 Características Destacadas de v2.0
+
+### Mejoras vs Versión Antigua:
+
+1. **Performance**: 50% más rápido con Vite
+2. **UX**: Diseño completamente renovado
+3. **Pagos**: Integración completa con Stripe
+4. **Multi-idioma**: 4 idiomas soportados
+5. **Guest Checkout**: Compras sin registro
+6. **Social Login**: Google y Facebook
+7. **Product Pages**: Galerías de imágenes mejoradas
+8. **Responsive**: Optimizado para todos los dispositivos
+9. **SEO**: Meta tags y Open Graph optimizados
+10. **Email**: Notificaciones automáticas
+
+---
+
+**¡Tu tienda de dulces internacional lista para el mundo!** 🌍🍭

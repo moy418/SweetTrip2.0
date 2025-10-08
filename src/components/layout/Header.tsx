@@ -6,8 +6,10 @@ import { useAuthStore } from '../../stores/authStore'
 import { Button } from '../ui/Button'
 import { Badge } from '../ui/Badge'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 const Header: React.FC = () => {
+  const { t } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const [searchTerm, setSearchTerm] = React.useState('')
@@ -36,9 +38,9 @@ const Header: React.FC = () => {
   }
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Products', href: '/products' },
-    { name: 'World Cup 2026', href: '/worldcup2026' },
+    { nameKey: 'nav.home', href: '/' },
+    { nameKey: 'nav.products', href: '/products' },
+    { nameKey: 'nav.worldcup2026', href: '/worldcup2026' },
   ]
 
   const categories = [
@@ -62,7 +64,7 @@ const Header: React.FC = () => {
           <div className="flex items-center justify-center space-x-2">
             <Truck className="h-4 w-4" />
             <span className="text-sm font-semibold">
-              FREE SHIPPING on orders over $60
+              {t('header.freeShipping')}
             </span>
           </div>
         </div>
@@ -103,7 +105,7 @@ const Header: React.FC = () => {
                   type="text"
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  placeholder="Search Product Name / Type or Brand"
+                  placeholder={t('header.searchPlaceholder')}
                   className="block w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-2xl leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:bg-white transition-all duration-200 shadow-sm hover:shadow-md"
                 />
                 {searchTerm.length === 0 && (
@@ -112,7 +114,7 @@ const Header: React.FC = () => {
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   >
                     <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-lg text-xs font-semibold hover:from-purple-600 hover:to-pink-600 transition-colors cursor-pointer">
-                      Search
+                      {t('header.searchButton')}
                     </div>
                   </button>
                 )}
@@ -175,18 +177,18 @@ const Header: React.FC = () => {
           <div className="flex flex-col space-y-4">
             {navigation.map((item) => (
               <Link
-                key={item.name}
+                key={item.nameKey}
                 to={item.href}
                 className="text-gray-700 hover:text-purple-600 font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {item.name}
+                {t(item.nameKey)}
               </Link>
             ))}
             
             {/* Mobile Categories */}
             <div className="pt-4 border-t border-gray-200">
-              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Categories</h3>
+              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">{t('header.categories')}</h3>
               <div className="grid grid-cols-2 gap-2">
                 {categories.map((category) => (
                   <Link
@@ -209,14 +211,14 @@ const Header: React.FC = () => {
                     className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Profile
+                    {t('nav.profile')}
                   </Link>
                   <Link
                     to="/orders"
                     className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Orders
+                    {t('nav.orders')}
                   </Link>
                   <button
                     onClick={() => {
@@ -225,7 +227,7 @@ const Header: React.FC = () => {
                     }}
                     className="text-left text-gray-700 hover:text-purple-600 font-medium transition-colors"
                   >
-                    Sign Out
+                    {t('nav.logout')}
                   </button>
                 </div>
               ) : (
@@ -235,14 +237,14 @@ const Header: React.FC = () => {
                     className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Sign In
+                    {t('nav.login')}
                   </Link>
                   <Link
                     to="/register"
                     className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Sign Up
+                    {t('nav.register')}
                   </Link>
                 </div>
               )}

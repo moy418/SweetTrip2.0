@@ -6,6 +6,8 @@ import { Button } from '../components/ui/Button'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useCartStore } from '../stores/cartStore'
 import { useAuthStore } from '../stores/authStore'
+import { sendOrderConfirmationEmail } from '../services/emailService'
+import toast from 'react-hot-toast'
 
 const CheckoutSuccessPage: React.FC = () => {
   const { t } = useLanguage()
@@ -21,33 +23,97 @@ const CheckoutSuccessPage: React.FC = () => {
     // Clear cart on successful checkout
     clearCart()
     
-    // In a real implementation, you would fetch order details using sessionId
-    // For now, we'll simulate order details
-    if (sessionId) {
-      setTimeout(() => {
-        setOrderDetails({
-          orderNumber: `ST-${Date.now()}`,
-          total: 45.99,
-          items: [
-            { name: 'Japanese Kit Kat Variety Pack', quantity: 2, price: 12.99 },
-            { name: 'Korean Honey Butter Chips', quantity: 1, price: 8.99 },
-            { name: 'Thai Mango Sticky Rice Candy', quantity: 1, price: 11.02 }
-          ],
-          shippingAddress: {
-            name: user?.user_metadata?.full_name || 'John Doe',
-            address: '123 Main St',
-            city: 'New York',
-            state: 'NY',
-            zip: '10001',
-            country: 'US'
-          },
-          estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) // 5 days from now
-        })
+    const fetchOrderAndSendEmail = async () => {
+      if (sessionId) {
+        try {
+          // Try to get order info from localStorage
+          const pendingOrder = localStorage.getItem('pending_order')
+          let orderData
+          
+          if (pendingOrder) {
+            const orderInfo = JSON.parse(pendingOrder)
+            orderData = {
+              orderNumber: `ST-${Date.now()}`,
+              total: orderInfo.total,
+              items: orderInfo.items,
+              shippingAddress: {
+                name: orderInfo.customerName,
+                address: '123 Main St',
+                city: 'El Paso',
+                state: 'TX',
+                zip: '79901',
+                country: 'US'
+              },
+              estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+            }
+            
+            // Clean up localStorage
+            localStorage.removeItem('pending_order')
+          } else {
+            // Fallback data
+            orderData = {
+              orderNumber: `ST-${Date.now()}`,
+              total: 45.99,
+              items: [
+                { name: 'Product 1', quantity: 1, price: 45.99 }
+              ],
+              shippingAddress: {
+                name: user?.user_metadata?.full_name || 'Guest Customer',
+                address: '123 Main St',
+                city: 'El Paso',
+                state: 'TX',
+                zip: '79901',
+                country: 'US'
+              },
+              estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+            }
+          }
+          
+          setOrderDetails(orderData)
+          
+          // Get customer info from localStorage if available
+          const customerEmail = pendingOrder ? JSON.parse(pendingOrder).customerEmail : user?.email || ''
+          const customerPhone = pendingOrder ? JSON.parse(pendingOrder).customerPhone : user?.phone || 'N/A'
+          
+          // Send email notifications to customer and admin
+          const emailSent = await sendOrderConfirmationEmail({
+            orderNumber: orderData.orderNumber,
+            customerName: orderData.shippingAddress.name,
+            customerEmail: customerEmail,
+            customerPhone: customerPhone,
+            paymentMethod: 'Credit Card',
+            paymentReference: sessionId,
+            deliveryMethod: 'shipping',
+            shippingAddress: orderData.shippingAddress,
+            orderItems: orderData.items.map((item: any) => ({
+              product_name: item.name,
+              quantity: item.quantity,
+              price: item.price
+            })),
+            totalAmount: orderData.total,
+            shippingCost: 5.99
+          })
+          
+          if (emailSent) {
+            console.log('✅ Email notifications sent successfully')
+            toast.success('Order confirmation sent to your email!')
+          } else {
+            console.log('⚠️ Email notifications failed')
+            toast.error('Failed to send confirmation email, but your order is confirmed')
+          }
+          
+        } catch (error) {
+          console.error('Error processing order:', error)
+          toast.error('Order confirmed, but there was an issue sending emails')
+        } finally {
+          setLoading(false)
+        }
+      } else {
         setLoading(false)
-      }, 1000)
-    } else {
-      setLoading(false)
+      }
     }
+    
+    fetchOrderAndSendEmail()
   }, [sessionId, clearCart, user])
 
   if (loading) {
